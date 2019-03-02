@@ -1,30 +1,33 @@
 {% extends "app/base.html" %}
 {%block content%}
-                <div class="container">
+                <div class="mt-5 container">
                     <div>
-                      <h1 class="mt-5" style="float: left;"><strong>Dashboard</strong></h1>
+                      <h1 style="float: left;"><strong>Dashboard</strong></h1>
                       <a href="./test.html">
-                        <button class="mt-5 btn btn-danger add" style="float: right;">Add Stock</button>
+                        <button class="btn btn-danger add" style="float: right;">Add Stock</button>
                       </a>
                     </div>
-                    <table border="2px 2px black">
-                      <thead>
-                        <td>Stock Name</td>
-                        <td>Purchase Price</td>
-                        <td>Quantity</td>
-                        <td>Sell</td>
-                      </thead>
-                      {% for item in data %}
-                      <tbody>
-                        <tr>
-                          <td>{{ item }}</td>
-                          <td>{{ item.purchase_price }}</td>
-                          <td>{{ item.amount_of_stock }}</td>
-                          <td>{{ item.to_sell }}</td>
-                        </tr>
-                      </tbody>
-                    {% endfor %}
-                    </table>
+                    <br><br><br>
+                    <div class="mt-5">
+                        <table class="table table-hover">
+                          <thead>
+                            <th scope="col">Stock Name</th>
+                            <th scope="col">Purchase Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Sell</th>
+                          </thead>
+                          {% for item in data %}
+                          <tbody>
+                            <tr>
+                              <td scope="row">{{ item }}</td>
+                              <td>{{ item.purchase_price }}</td>
+                              <td>{{ item.amount_of_stock }}</td>
+                              <td>{{ item.to_sell }}</td>
+                            </tr>
+                          </tbody>
+                        {% endfor %}
+                        </table>
+                    </div>    
                 </div>
 
             <!-- /#page-content-wrapper -->
