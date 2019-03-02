@@ -9,7 +9,12 @@
         <link rel="stylesheet" type="text/css" href="../../static/css/home.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">          
-
+        <style>
+          td{
+            padding: 5px;
+            text-align: center;
+          }
+        </style>
     </head>
 
     <body>
@@ -69,7 +74,25 @@
               </nav>
 
                 <div class="container">
-                    <h1 class="mt-4"><strong>Dashboard</strong></h1>
+                    <h1 class="mt-4"><strong>Dashboard</strong></h1><br><br>
+                    <table border="2px 2px black">
+                      <thead>
+                        <td>Stock Name</td>
+                        <td>Purchase Price</td>
+                        <td>Quantity</td>
+                        <td>Sell</td>
+                      </thead>
+                      {% for item in data %}
+                      <tbody>
+                        <tr>
+                          <td>{{ item }}</td>
+                          <td>{{ item.purchase_price }}</td>
+                          <td>{{ item.amount_of_stock }}</td>
+                          <td>{{ item.to_sell }}</td>
+                        </tr>
+                      </tbody>
+                    {% endfor %}
+                    </table>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

@@ -9,6 +9,7 @@ class Company(models.Model):
     amount_of_stock = models.IntegerField()
     purchase_price = models.FloatField()
     stoploss = models.FloatField()
+    to_sell = models.CharField(max_length=3, default="No")
 
     def __str__(self):
         return self.company_name

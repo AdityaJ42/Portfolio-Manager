@@ -1,15 +1,13 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import Sign
 import tweepy
 from textblob import TextBlob
-from datetime import date
-from nsepy import get_history
+from .models import Company
 import numpy as np
+import os
 from keras.models import Sequential
 from keras.layers import Dense
-from .models import Company
 
 consumer_key = "k3pEbBjtma2rzFUOebGxaSKq0"
 consumer_secret = "gF8u5ypWPr2EMNTfhujEI4X9uWlM1ROv6dxWzCHOMkmbjKBOU4"
@@ -40,10 +38,14 @@ def get_sentiment(company_name):
 
 
 def predictor(ticker):
-    stock_opt = get_history(symbol=ticker, start=date(2019, 1, 1),
-                            end=date(2019, 3, 1))
-    opening_prices = stock_opt['Open']
-    dataset = np.array(opening_prices)
+    base = os.getcwd()
+    path = base + '/app/data/' + ticker + '.csv'
+    fd = open(path)
+    dataset = []
+    for n, line in enumerate(fd):
+        if n != 0:
+            dataset.append(float(line.split(',')[4]))
+    dataset = np.array(dataset)
 
     def create_dataset(dataset):
         data_x = [dataset[n + 1] for n in range(len(dataset) - 2)]
@@ -52,23 +54,37 @@ def predictor(ticker):
     trainX, trainY = create_dataset(dataset)
 
     model = Sequential()
-    model.add(Dense(8, input_dim=1, activation='relu'))
+    model.add(Dense(5, input_dim=1, activation='relu'))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
+    print("HERE\n\n\n")
     model.fit(trainX, trainY, epochs=200, batch_size=2, verbose=0)
 
-    prediction = model.predict(np.array([dataset[len(dataset) - 1]]))
-    return prediction
+    return model.predict(np.array([dataset[len(dataset) - 1]]))
 
 
 def home(request):
-    return HttpResponse('<h1>Hello</h1>')
+    return render(request, 'app/home.html')
 
 
 def dashboard(request):
+    update_item = []
     data = Company.objects.filter(user=request.user)
-    # data = list(data)
-    return render(request, 'app/dashboard1.html', {'data': data})
+    for item in data:
+        ticker = item.company_intial
+        predicted_price = predictor(ticker.upper())
+        if predicted_price[0][0] < item.stoploss:
+            print(str(item.stoploss) + ':' + str(predicted_price[0][0]))
+            update_item.append(item.company_intial)
+
+    if update_item:
+        for i in update_item:
+            temp = Company.objects.get(company_intial=i)
+            temp.to_sell = "Yes"
+            temp.save()
+
+    data = Company.objects.filter(user=request.user)
+    return render(request, 'app/dashboard.html', {'data': data})
 
 
 def register(request):
@@ -89,10 +105,6 @@ def register(request):
         user_form = Sign()
 
     return render(request, 'app/register.html', {'user_form': user_form})
-
-
-def add_stock(request):
-    pass
 
 
 def login_user(request):
