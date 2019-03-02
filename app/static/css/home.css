@@ -3,6 +3,17 @@ body {
   font-family: 'Century-Gothic';
 }
 
+.form-group {
+  font-size: 18px;
+/*  margin-bottom: 3vh;
+  margin-top: 3vh;*/
+}
+
+.butt, .add {
+  width: 15vh;
+  font-size: 18px;
+}
+
 .list-group-item {
   font-size: 20px;
 }
