@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5d86c8f-d3dd-43d8-9e21-ab4863f8c8af" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/js/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/home.css" afterPath="$PROJECT_DIR$/app/static/css/home.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/app/base.html" afterPath="$PROJECT_DIR$/app/templates/app/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/app/dashboard.html" afterPath="$PROJECT_DIR$/app/templates/app/dashboard.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/app/portfolio.html" afterPath="$PROJECT_DIR$/app/templates/app/portfolio.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/app/test.html" afterPath="$PROJECT_DIR$/app/templates/app/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/urls.py" afterPath="$PROJECT_DIR$/app/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -98,8 +90,8 @@
       <file leaf-file-name="portfolio.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/app/portfolio.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="157" selection-end-column="11" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -662,8 +654,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/app/portfolio.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="157" selection-end-column="11" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
