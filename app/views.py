@@ -55,10 +55,9 @@ def predictor(ticker):
     trainX, trainY = create_dataset(dataset)
 
     model = Sequential()
-    model.add(Dense(5, input_dim=1, activation='relu'))
+    model.add(Dense(2, input_dim=1, activation='relu'))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    print("HERE\n\n\n")
     model.fit(trainX, trainY, epochs=200, batch_size=2, verbose=0)
 
     return model.predict(np.array([dataset[len(dataset) - 1]]))
@@ -159,12 +158,16 @@ def company(request):
 def portfolio(request):
     companies = Company.objects.filter(user=request.user)
     costs = {}
+    costs_predicted = {}
     total = 0
     for company in companies:
         total += company.amount_of_stock * company.purchase_price
     for company in companies:
         val = company.amount_of_stock * company.purchase_price
-        percent = (val * 100) / total
-        costs[company.company_name] = percent
+        percent1 = (val * 100) / total
+        val = company.amount_of_stock * predictor(company.company_intial.upper())
+        percent2 = (val * 100) / total
+        costs[company.company_name] = percent1
+        costs_predicted[company.company_name] = percent2
 
-    return render(request, 'app/portfolio.html', {'costs': costs})
+    return render(request, 'app/portfolio.html', {'costs': costs, 'costs_predicted': costs_predicted})
