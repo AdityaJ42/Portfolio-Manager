@@ -34,18 +34,19 @@
 						</div>
 					</div>
 					<div class="d-flex justify-content-center form_container">
-						<form>
+						<form method="post">
+							{%csrf_token%}
 							<div class="input-group mb-3">
 								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="email" name="" class="form-control input_user" value="" placeholder="Email">
+								<input type="text" name="username" class="form-control input_user" value="" placeholder="Username">
 							</div>
 							<div class="input-group mb-2">
 								<div class="input-group-append">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input type="password" name="" class="form-control input_pass" value="" placeholder="Password">
+								<input type="password" name="password" class="form-control input_pass" value="" placeholder="Password">
 							</div>
 <!-- 							<div class="form-group">
 								<div class="custom-control custom-checkbox">
@@ -60,7 +61,7 @@
 					</div>
 					<div class="mt-4">
 						<div class="d-flex justify-content-center links">
-							Don't have an account? <a href="./register.html" class="ml-2">Sign Up</a>
+							Don't have an account? <a href="{%url 'app:register' %}" class="ml-2">Sign Up</a>
 						</div>
 <!-- 						<div class="d-flex justify-content-center links">
 							<a href="#">Forgot your password?</a>

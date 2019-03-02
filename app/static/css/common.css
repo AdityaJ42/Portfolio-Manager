@@ -5,8 +5,14 @@
 			height: 100%;
 			background: #60a3bc !important;
 		}
+
+		.main {
+		    margin-top: 15vh;
+		    argin-bottom: 30vh;
+		}
+
 		.user_card {
-			height: 400px;
+			height: auto;
 			width: 350px;
 			margin-top: auto;
 			margin-bottom: auto;
@@ -67,3 +73,18 @@
 		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
 			background-color: #c0392b !important;
 		}
+
+        label {
+            font-size: 18px;
+        }
+
+        input[type=text], input[type=password], input[type=email] {
+            width: 100%;
+            font-size: 18px;
+            padding: 2vh;
+            text-decoration: none;
+            border-radius: 3vh;
+            display: inline-block;
+            border: none;
+            border-bottom: 1px solid #ccc;
+        }

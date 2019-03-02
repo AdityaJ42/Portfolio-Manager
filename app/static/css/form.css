@@ -1,0 +1,13 @@
+body{
+
+}
+.container{
+	margin: 100px;
+	padding: 100px;
+}
+.form-group{
+	width:70%;
+}
+.butt{
+		padding-left:50%;
+}
