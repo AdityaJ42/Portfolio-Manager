@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,23 +20,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <div class="container">
-    <form>
+    <form method="post">
+      {% csrf_token %}
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Company Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputEmail3" placeholder="Company Name">
+      <input type="text" class="form-control" name="compname" id="inputEmail3" placeholder="Company Name">
     </div>
   </div>
   <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">Intials</label>
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Ticker</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputPassword3" placeholder="Intials">
+      <input type="text" class="form-control" name="ticker" id="inputPassword3" placeholder="Intials">
     </div>
   </div>
   <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Number of Stocks</label>
+    <label for="inputPassword5" class="col-sm-2 col-form-label">Purchase Price(per stock)</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="inputEmail1" placeholder="Stock Number">
+      <input type="text" class="form-control" name="ppps" id="inputPassword5" placeholder="Intials">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputEmail2" class="col-sm-2 col-form-label">Amount of Stock</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" name="amt" id="inputEmail12" placeholder="Amount">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputEmail4" class="col-sm-2 col-form-label">StopLoss</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" name="stopl" id="inputEmail4" placeholder="Amount">
     </div>
   </div>
 

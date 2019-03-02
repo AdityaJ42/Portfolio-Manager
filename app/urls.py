@@ -1,13 +1,11 @@
-from django.contrib import admin
-from django.urls import path,include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
 from . import views
 
-app_name='app'
+app_name = 'app'
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',views.register,name='register'),
-    path('signin/',views.login_user,name='login'),
+	path('dashboard/',views.dashboard,name='dashboard'),
+    path('signin/', views.login_user, name='login'),
+    path('add/', views.company, name='add_company'),
+    path('register/', views.register, name='register'),
     path('home/', views.home, name='home'),
 ]
