@@ -14,6 +14,10 @@
             padding: 5px;
             text-align: center;
           }
+
+          th{
+            font-size: 20px;
+          }
         </style>
         <link rel="stylesheet" type="text/css" href="../../static/css/home.css">
     </head>
@@ -32,7 +36,7 @@
                 <div class="list-group list-group-flush">
                     <a href="{%url 'app:home'%}" class="list-group-item list-group-item-action bg-light">Home</a>
                     <a href="{%url 'app:dashboard'%}" class="list-group-item list-group-item-action bg-light">Dashboard<span class="sr-only">(current)</span></a>
-                    <a href="./portfolio.html" class="list-group-item list-group-item-action bg-light">Portfolio</a>
+                    <a href="{%url 'app:portfolio'%}" class="list-group-item list-group-item-action bg-light">Portfolio</a>
 <!--                     <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Status</a> -->
@@ -53,11 +57,11 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0" style="font-size: 20px;">
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-user-circle"></i> Devansh<span class="caret"></span></a>
+                                <a class="nav-link" href="{% url 'app:dashboard' %}"><i class="fa fa-user-circle"></i> {{ request.user }}<span class="caret"></span></a>
                             </li>
                             &nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{% url 'app:logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout<span class="sr-only">(current)</span></a>
                             </li>
                         </ul>
                     </div>

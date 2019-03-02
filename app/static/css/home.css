@@ -3,6 +3,10 @@ body {
   font-family: 'Century-Gothic';
 }
 
+th {
+  font-size: 22px;
+}
+
 .form-group {
   font-size: 18px;
 /*  margin-bottom: 3vh;

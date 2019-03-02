@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .forms import Sign
-import tweepy
-from textblob import TextBlob
+# import tweepy
+# from textblob import TextBlob
 from .models import Company
 import numpy as np
 import os
@@ -15,7 +16,7 @@ access_token = "1101314053589233664-Ahed5wAS2hDCqdcnV40J6eCYgnRNOv"
 access_token_secret = "GNOhScWWbhpBn4F5lwSlIqviHe8UCfE7J80mlGOnqqRja"
 
 
-def get_sentiment(company_name):
+"""def get_sentiment(company_name):
     print("HERE")
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -34,7 +35,7 @@ def get_sentiment(company_name):
     if positive > (len(public_tweets) - null) / 2:
         return True
     else:
-        return False
+        return False"""
 
 
 def predictor(ticker):
@@ -54,19 +55,20 @@ def predictor(ticker):
     trainX, trainY = create_dataset(dataset)
 
     model = Sequential()
-    model.add(Dense(5, input_dim=1, activation='relu'))
+    model.add(Dense(2, input_dim=1, activation='relu'))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    print("HERE\n\n\n")
     model.fit(trainX, trainY, epochs=200, batch_size=2, verbose=0)
 
     return model.predict(np.array([dataset[len(dataset) - 1]]))
 
 
+@login_required(login_url='app:login')
 def home(request):
     return render(request, 'app/home.html')
 
 
+@login_required(login_url='app:login')
 def dashboard(request):
     update_item = []
     data = Company.objects.filter(user=request.user)
@@ -120,10 +122,13 @@ def login_user(request):
     return render(request, 'app/login.html')
 
 
+@login_required(login_url='app:login')
 def logout_user(request):
     logout(request)
+    return redirect('/app/signin')
 
 
+@login_required(login_url='app:login')
 def company(request):
     if request.method == 'POST':
         user = request.user
@@ -149,15 +154,20 @@ def company(request):
     return render(request, 'app/test.html')
 
 
+@login_required(login_url='app:login')
 def portfolio(request):
     companies = Company.objects.filter(user=request.user)
     costs = {}
+    costs_predicted = {}
     total = 0
     for company in companies:
         total += company.amount_of_stock * company.purchase_price
     for company in companies:
         val = company.amount_of_stock * company.purchase_price
-        percent = (val * 100) / total
-        costs[company.company_name] = percent
+        percent1 = (val * 100) / total
+        val = company.amount_of_stock * predictor(company.company_intial.upper())
+        percent2 = (val * 100) / total
+        costs[company.company_name] = percent1
+        costs_predicted[company.company_name] = percent2
 
-    return render(request, 'app/portfolio.html', {'costs': costs})
+    return render(request, 'app/portfolio.html', {'costs': costs, 'costs_predicted': costs_predicted})
