@@ -85,7 +85,34 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
         <script type="text/javascript" src="../../static/js/home.js"></script>
-        <script type="text/javascript" src="../../static/js/portfolio.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+
+            var f = [{% for key, value in costs.items %}
+                        {y: {{ value }}, label: "{{ key }}"},
+                     {% endfor %}
+                    ];
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title:{
+                    text: "Investment",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    indexLabelFontSize: 18,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: f
+                }]
+            });
+            chart.render();
+
+            }
+        </script>
 
     </body>
 </html>          

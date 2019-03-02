@@ -147,3 +147,17 @@ def company(request):
         # print(sentiment, predicted_price)
         return redirect('/app/dashboard')
     return render(request, 'app/test.html')
+
+
+def portfolio(request):
+    companies = Company.objects.filter(user=request.user)
+    costs = {}
+    total = 0
+    for company in companies:
+        total += company.amount_of_stock * company.purchase_price
+    for company in companies:
+        val = company.amount_of_stock * company.purchase_price
+        percent = (val * 100) / total
+        costs[company.company_name] = percent
+
+    return render(request, 'app/portfolio.html', {'costs': costs})
