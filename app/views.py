@@ -57,7 +57,7 @@ def predictor(ticker):
     model.add(Dense(8, input_dim=1, activation='relu'))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs=100, batch_size=10, verbose=0)
+    model.fit(trainX, trainY, epochs=50, batch_size=10, verbose=0)
 
     return model.predict(np.array([dataset[len(dataset) - 1]]))
 
@@ -139,6 +139,7 @@ def company(request):
         stploss = request.POST['stopl']
         if request.POST['rate']:
             rate = request.POST['rate']
+            company.dividend_rate = rate
 
         company = Company()
         company.user = user
@@ -147,7 +148,6 @@ def company(request):
         company.amount_of_stock = amount_of_stock
         company.purchase_price = pur_price
         company.stoploss = stploss
-        company.dividend_rate = rate
         company.save()
 
         return redirect('/app/dashboard')
