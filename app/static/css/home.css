@@ -1,6 +1,6 @@
 body {
   overflow-x: hidden;
-  font-family: 'Century-Gothic';
+  font-family: 'Assistant';font-size: 22px;;
 }
 
 th {
@@ -81,6 +81,7 @@ th {
     margin-left: -15rem;
   }
 }
+<<<<<<< HEAD
 
 #load{
     width:100%;
@@ -89,3 +90,12 @@ th {
     z-index:9999;
     background:url("https://dribbble.com/shots/4275501-Loading-Screen-Animation-Hourglass?utm_source=Clipboard_Shot&utm_campaign=makito&utm_content=Loading%20Screen%20Animation%20-%20Hourglass&utm_medium=Social_Share") no-repeat center center rgba(0,0,0,0.25)
 }
+=======
+/*#wrapper{
+    width:auto;
+    height:auto%;
+    position:auto;
+    z-index:9999;
+    background:url("{% static 'images/load.gif'%}") no-repeat center center rgba(0,0,0,0.25)
+}*/
+>>>>>>> 82db87666e82af703db8a8b7974ff954b796cd9b

@@ -43,22 +43,23 @@
         <div class="d-flex" id="wrapper">
 
             <!-- Sidebar -->
-            <div class="bg-light border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading">
-                    <a class="navbar-brand" href="{% url 'app:home' %}">
-                        <img style="height: 4vh;" class="img-fluid rounded" src="{% static 'images/logo.png' %}">
-                        <span>Portfolio Manager</span>
-                    </a>
+                <div class="bg-light border-right" id="sidebar-wrapper">
+                    <div class="sidebar-heading">
+                        <a class="navbar-brand" href="{% url 'app:home' %}">
+                            <img style="height: 4vh;" class="img-fluid rounded" src="{% static 'images/logo.png' %}">
+                            <span>Portfolio Manager</span>
+                        </a>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="{%url 'app:home'%}" class="list-group-item list-group-item-action bg-light">Home</a>
+                        <a href="{%url 'app:dashboard'%}" class="list-group-item list-group-item-action bg-light">Dashboard<span class="sr-only">(current)</span></a>
+                        <a href="{%url 'app:portfolio'%}" class="list-group-item list-group-item-action bg-light">Portfolio</a>
+    <!--                     <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+                        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+                        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a> -->
+                    </div>
                 </div>
-                <div class="list-group list-group-flush">
-                    <a href="{%url 'app:home'%}" class="list-group-item list-group-item-action bg-light">Home</a>
-                    <a href="{%url 'app:dashboard'%}" class="list-group-item list-group-item-action bg-light">Dashboard<span class="sr-only">(current)</span></a>
-                    <a href="{%url 'app:portfolio'%}" class="list-group-item list-group-item-action bg-light">Portfolio</a>
-<!--                     <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Status</a> -->
-                </div>
-            </div>
+
             <!-- /#sidebar-wrapper -->
 
             <!-- Page Content -->
@@ -88,8 +89,27 @@
 
 
                 {% endblock content %}
+
             </div>
-        </div>    
+
+            </div>
+    <!--<script type="text/javascript">-->
+        <!--document.onreadystatechange = function () {-->
+                <!--var state = document.readyState-->
+                <!--if (state == 'interactive') {-->
+                    <!--document.getElementById('contents').style.visibility="hidden";-->
+                <!--} else if (state == 'complete') {-->
+                <!--setTimeout(function(){-->
+                <!--document.getElementById('interactive');-->
+                <!--document.getElementById('wrapper').style.visibility="hidden";-->
+                <!--document.getElementById('page-content-wrapper').style.visibility="visible";-->
+           <!--},2000);-->
+        <!--}-->
+
+
+
+
+    <!--</script>-->
 
     </body>
 </html>
