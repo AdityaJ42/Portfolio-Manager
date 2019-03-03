@@ -9,7 +9,7 @@ Home
 	<div class="mt-5 container">
 		<h1 class="mt-5"  style="background-color: #D3D3D3; border-radius: 2vh; padding: 2vh;"><i class="fa fa-home" aria-hidden="true"></i> Home</h1>
 		<br><br>
-        <h4>Company which is going to show an increase in price based on sentiment: DLF, BAJAJ-AUTO and RELIANCE</h4>
+        <h4>Company which is going to show an increase in price based on sentiment: LUPIN, BAJAJ-AUTO and RELIANCE</h4>
 		<canvas class="mb-5 p-5" id="myChart" style="height: 500px; width: 500px;"></canvas>
 	</div>
 
@@ -58,7 +58,10 @@ Home
         // Configuration options go here
         options: {
             axisX: {
-                showGrid: false
+                showGrid: true
+            },
+            axisY: {
+                showGrid: true
             }
         }
     });

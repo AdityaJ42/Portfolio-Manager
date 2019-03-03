@@ -10,10 +10,11 @@ import os
 from keras.models import Sequential
 from keras.layers import Dense
 
-consumer_key = "pNrQrTuL49C5EIv9lwEcXHudu"
-consumer_secret = "xVeNYAmrJ3AraIaWBksDmEICNfHCvpBSmiWjcKx7l3TmKNFeTi"
-access_token = "1101314053589233664-ojd8eHuQvQSAusZ8IB4ies8qOnkMr6"
-access_token_secret = "cWcdGtZPhBFOvGzx7HXk66qYp9dj3nfQDjUxmxa23VZ6c"
+# Insert keys here
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
 
 
 def get_sentiment(company_name):
@@ -137,11 +138,11 @@ def company(request):
         amount_of_stock = request.POST['amt']
         pur_price = request.POST['ppps']
         stploss = request.POST['stopl']
+
+        company = Company()
         if request.POST['rate']:
             rate = request.POST['rate']
             company.dividend_rate = rate
-
-        company = Company()
         company.user = user
         company.company_name = name
         company.company_intial = ticker
@@ -161,6 +162,7 @@ def portfolio(request):
     costs_pred = {}
     dividend = {}
     total = 0
+    total2 = 0
     for company in companies:
         total += company.amount_of_stock * company.purchase_price
 
@@ -170,11 +172,12 @@ def portfolio(request):
         percent2 = (pred * company.amount_of_stock * 100) / total
         div_amt = (pred * company.amount_of_stock * company.dividend_rate) / 100
         dividend[company.company_name] = div_amt
+        total2 += div_amt
         costs[company.company_name] = percent1
         costs_pred[company.company_name] = percent2
 
     return render(request, 'app/portfolio.html', {'costs': costs, 'total': total, 'dividend': dividend,
-                                                'costs_pred': costs_pred})
+                                                'costs_pred': costs_pred, 'total2': total2})
 
 
 @login_required(login_url='app:login')
