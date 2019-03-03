@@ -170,8 +170,8 @@ def portfolio(request):
         percent2 = (pred * company.amount_of_stock * 100) / total
         div_amt = (pred * company.amount_of_stock * company.dividend_rate) / 100
         dividend[company.company_name] = div_amt
-        costs[company.company_name] = percent1
-        costs_pred[company.company_name] = percent2
+        costs[company.company_name] = (int)(percent1 + 0.5)
+        costs_pred[company.company_name] = (int)(percent2 + 0.5)
 
     return render(request, 'app/portfolio.html', {'costs': costs, 'total': total, 'dividend': dividend,
                                                 'costs_pred': costs_pred})

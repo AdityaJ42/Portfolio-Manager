@@ -5,13 +5,22 @@ Portfolio
 
 {%block content%}
                 <div class="container mb-5">
-                    <h1 class="mt-5"><i class="fa fa-folder-open" aria-hidden="true"></i> Portfolio</h1>
+                    <h1 class="mt-5"  style="background-color: #D3D3D3; border-radius: 2vh; padding: 2vh;"><i class="fa fa-folder-open" aria-hidden="true"></i> Portfolio</h1>
                     <br><br>
                     <h3>Total Investment: Rs {{ total }}</h3>
                     <br>
-                    <div class="row">
-	                    <div class="col-6" id="chartContainer1" style="height: 500px; width: 100%;"></div>
-	                    <div class="col-6 mt-5 p-5">
+                    <h3>Today :</h3>
+                    <br>
+                    <div class="row" style="background-color: #D3D3D3; border-radius: 2vh; padding: 2vh;">
+	                    <canvas class="col-6" id="chartContainer1" style="height: 250px; width: 100%;"></canvas>
+                	</div>
+                	<br><br><br>
+                	<h3>Tomorrow :</h3>
+                	<br>
+                	<div class="row"  style="background-color: #D3D3D3; border-radius: 2vh; padding: 2vh;">          
+                		<canvas class="col-6" id="chartContainer2" style="height: 250px; width: 100%;"></canvas>
+
+                			<div class="col-6 mt-5 p-5">
 	                    	<h4>Dividends Expected:</h4>
 	                    	{% for key, values in dividend.items %}
 	                    	<h4>{{ key }} - 
@@ -20,6 +29,7 @@ Portfolio
 	                    	{% endfor %}
 	                    	</h4>
 	                    	{% endfor %}
+	                    	
 	                    </div>
                 	</div>
                 </div>
@@ -30,40 +40,65 @@ Portfolio
           <!-- /#wrapper -->
 
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../../static/js/home.js"></script>
+
         <script type="text/javascript">
+        	var ctx1 = document.getElementById("chartContainer1");
+        	var ctx2 = document.getElementById("chartContainer2");
+        	
+        	var data1 = [{% for k, values in costs.items %}
+        					{{ values }},
+        				{% endfor %}
+        				]
 
-            window.onload = function () {
+        	var label1 = [{% for k, values in costs.items %}
+        					"{{ k }}",
+        				{% endfor %}
+        				]
+        	var data2 = [{% for k, values in costs_pred.items %}
+        					{{ values }},
+        				{% endfor %}
+        				]
 
-            var f = [{% for key, value in costs.items %}
-                        {y: {{ value }}, label: "{{ key }}"},
-                     {% endfor %}
-                    ];
+        	var label2 = [{% for k, values in costs_pred.items %}
+        					"{{ k }}",
+        				{% endfor %}
+        				]
 
-            var chart = new CanvasJS.Chart("chartContainer1", {
-                animationEnabled: true,
-                title:{
-                    text: "Investments",
-                    horizontalAlign: "left"
-                },
-                data: [{
-                    type: "doughnut",
-                    startAngle: 60,
-                    //innerRadius: 60,
-                    indexLabelFontSize: 18,
-                    indexLabel: "{label} - #percent%",
-                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-                    dataPoints: f
-                }]
-            });
-            chart.render();
+        	var data11 = {
+				    datasets: [{
+				        data: data1,
+				        backgroundColor: ["rgba(255,0,0,1)", "rgba(0,255,0,1)", "rgba(0,0,255,1)", "rgba(255,255,0,1)"]
+				    }],
 
-            }
+				    // These labels appear in the legend and in the tooltips when hovering different arcs
+				    labels: label1
+				};
+        	var data21 = {
+				    datasets: [{
+				        data: data2,
+				        backgroundColor: ["rgba(255,0,0,1)", "rgba(0,255,0,1)", "rgba(0,0,255,1)", "rgba(255,255,0,1)"]
+				    }],
+
+				    // These labels appear in the legend and in the tooltips when hovering different arcs
+				    labels: label2
+				};
+
+			var myDoughnutChart1 = new Chart(ctx1, {
+   				type: 'doughnut',
+    			data: data11,
+    			options: {}
+			});
+			var myDoughnutChart2 = new Chart(ctx2, {
+   				type: 'doughnut',
+    			data: data21,
+    			options: {}
+			});
         </script>
-
 
 
 
