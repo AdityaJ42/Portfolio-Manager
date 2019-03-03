@@ -1,12 +1,51 @@
 {% extends "app/base.html" %}
-{%block content%}
+{% block title %}
+Home
+{% endblock %}
 
-      <div class="container">
-                    <h1 class="mt-5"><strong>Home Page</strong></h1>
-                </div>
-            </div>
-            <!-- /#page-content-wrapper -->
 
-        </div>
-          <!-- /#wrapper -->
-  {%endblock content%}
+{% block content %}
+
+	<div class="container">
+		<h1 class="mt-5"><strong>Home Page</strong></h1>
+		<br><br><br>
+		<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+	</div>
+
+
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
+	<script type="text/javascript" src="../../static/js/home.js"></script>
+	<script type="text/javascript">
+            window.onload = function () {
+
+			var f = [{% for key, value in stocks.items %}
+                        {% for val in value %}
+                        	{y: {{ val }}},
+                        {% endfor %}
+                     {% endfor %}
+            ];
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title:{
+                    text: "Stock Trend",
+                },
+                axisY:{
+					includeZero: false
+				},
+                data: [{
+                    type: "line",
+                    lineColor: "red",
+                    dataPoints: f
+                }]
+            });
+            chart.render();
+
+            }
+
+
+        </script>
+  {% endblock %}

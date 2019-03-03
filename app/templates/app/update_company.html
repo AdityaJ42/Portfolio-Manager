@@ -1,34 +1,38 @@
 {% extends "app/base.html" %}
+
 {% block title %}
-Add Stock
+Update Stock
 {% endblock %}
 
 {%block content%}
               	<br><br>
 				<div class="container mt-5">
-				    <form method="post">
+				    <form method="post" action="{% url 'app:dashboard' %}">
 				      	{% csrf_token %}
 					  	<div class="form-group row">
 					    	<label for="inputEmail3" class="col-sm-2 col-form-label">Company Name</label>
 					    	<div class="col-sm-8">
-					      		<input type="text" class="form-control" name="compname" id="inputEmail3" placeholder="Company Name">
+					      		<input type="text" class="form-control" name="compname" id="inputEmail3" value="{{ data.company_name }}" disabled>
 					    	</div>
 					  	</div>
 					  	<br>
+
 					  	<div class="form-group row">
 						    <label for="inputPassword3" class="col-sm-2 col-form-label">Ticker</label>
 						    <div class="col-sm-8">
-						      	<input type="text" class="form-control" name="ticker" id="inputPassword3" placeholder="Intials">
+						      	<input type="text" class="form-control" name="ticker" id="inputPassword3" value="{{ data.company_intial }}" disabled>
 						    </div>
 					  	</div>
 					  	<br>
+
 					  	<div class="form-group row">
 						    <label for="inputPassword5" class="col-sm-2 col-form-label">Purchase Price(per stock)</label>
 						    <div class="col-sm-8">
-						      	<input type="text" class="form-control" name="ppps" id="inputPassword5" placeholder="Intials">
+						      	<input type="text" class="form-control" name="ppps" id="inputPassword5" value="{{ data.purchase_price }}" disabled>
 						    </div>
 					  	</div>
 					  	<br>
+
 					  	<div class="form-group row">
 						    <label for="inputEmail2" class="col-sm-2 col-form-label">Amount of Stock</label>
 						    <div class="col-sm-8">
@@ -36,6 +40,7 @@ Add Stock
 						    </div>
 					  	</div>
 					  	<br>
+
 					  	<div class="form-group row">
 						    <label for="inputEmail4" class="col-sm-2 col-form-label">StopLoss</label>
 						    <div class="col-sm-8">
@@ -43,10 +48,11 @@ Add Stock
 						    </div>
 					 	</div>
 					 	<br>
+
 					 	<center>
 						  	<div class="form-group row">
 							    <div class="col-sm-10 p-3">
-							      	<button type="submit" class="btn btn-success butt p-2">Add</button>
+							      	<button type="submit" class="btn btn-success butt p-2">Update</button>
 							    </div>
 						  	</div>
 					  </center>

@@ -1,4 +1,8 @@
 {% extends "app/base.html" %}
+{% block title %}
+Portfolio
+{% endblock %}
+
 {%block content%}
                 <div class="container">
                     <h1 class="mt-5"><strong>Portfolio</strong></h1>
@@ -20,7 +24,7 @@
         <script type="text/javascript">
             window.onload = function () {
 
-            var f = [{% for key, value in costs_predicted.items %}
+            var f = [{% for key, value in costs.items %}
                         {y: {{ value }}, label: "{{ key }}"},
                      {% endfor %}
                     ];

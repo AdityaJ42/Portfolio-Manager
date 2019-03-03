@@ -55,17 +55,29 @@ def predictor(ticker):
     trainX, trainY = create_dataset(dataset)
 
     model = Sequential()
-    model.add(Dense(2, input_dim=1, activation='relu'))
+    model.add(Dense(8, input_dim=1, activation='relu'))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs=200, batch_size=2, verbose=0)
+    model.fit(trainX, trainY, epochs=200, batch_size=10, verbose=0)
 
     return model.predict(np.array([dataset[len(dataset) - 1]]))
 
 
 @login_required(login_url='app:login')
 def home(request):
-    return render(request, 'app/home.html')
+    path = os.getcwd() + '/app/data/'
+    files_list = os.listdir(path)[:1]
+    stocks = {}
+    for f in files_list:
+        company_name = f[:f.find('.')]
+        fd = open(path + f)
+        dataset = []
+        for n, line in enumerate(fd):
+            if n != 0:
+                dataset.append(float(line.split(',')[4]))
+        stocks[company_name] = dataset
+    print(stocks)
+    return render(request, 'app/home.html', {'stocks': stocks})
 
 
 @login_required(login_url='app:login')
@@ -79,10 +91,12 @@ def dashboard(request):
             print(str(item.stoploss) + ':' + str(predicted_price[0][0]))
             update_item.append(item.company_intial)
 
-    if update_item:
-        for i in update_item:
-            temp = Company.objects.get(company_intial=i)
+    for temp in data:
+        if temp.company_intial in update_item:
             temp.to_sell = "Yes"
+            temp.save()
+        else:
+            temp.to_sell = "No"
             temp.save()
 
     data = Company.objects.filter(user=request.user)
@@ -147,9 +161,6 @@ def company(request):
         company.stoploss = stploss
         company.save()
 
-        # sentiment = get_sentiment(name)
-        # predicted_price = predictor(ticker.upper())
-        # print(sentiment, predicted_price)
         return redirect('/app/dashboard')
     return render(request, 'app/test.html')
 
@@ -158,16 +169,37 @@ def company(request):
 def portfolio(request):
     companies = Company.objects.filter(user=request.user)
     costs = {}
-    costs_predicted = {}
     total = 0
     for company in companies:
         total += company.amount_of_stock * company.purchase_price
-    for company in companies:
-        val = company.amount_of_stock * company.purchase_price
-        percent1 = (val * 100) / total
-        val = company.amount_of_stock * predictor(company.company_intial.upper())
-        percent2 = (val * 100) / total
-        costs[company.company_name] = percent1
-        costs_predicted[company.company_name] = percent2
 
-    return render(request, 'app/portfolio.html', {'costs': costs, 'costs_predicted': costs_predicted})
+    for company in companies:
+        percent1 = (company.purchase_price * company.amount_of_stock * 100) / total
+        costs[company.company_name] = percent1
+
+    return render(request, 'app/portfolio.html', {'costs': costs})
+
+
+@login_required(login_url='app:login')
+def stock_update(request, id):
+    company = Company.objects.filter(user=request.user)
+    data = [x for x in company if x.id == id][0]
+
+    if request.method == 'POST':
+        new_amt = request.POST['amt']
+        new_stoploss = request.POST['stopl']
+
+        data.amount_of_stock = new_amt
+        data.stoploss = new_stoploss
+
+        data.save()
+        return render(request, 'app/dashboard.html')
+    print(data.company_intial + '\n\n')
+    return render(request, 'app/update_company.html', {'data': data})
+
+
+def display(request, id):
+    company = Company.objects.filter(user=request.user)
+    a = company[id - 1]
+
+    return render(request, 't.html', {'a': a})

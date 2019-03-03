@@ -1,4 +1,9 @@
 {% extends "app/base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+
+
 {%block content%}
                 <div class="mt-5 container">
                     <div>
@@ -15,6 +20,7 @@
                             <th scope="col">Purchase Price</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Sell</th>
+                            <th scope="col">Update Stock</th>
                           </thead>
                           {% for item in data %}
                           <tbody>
@@ -23,6 +29,7 @@
                               <td>{{ item.purchase_price }}</td>
                               <td>{{ item.amount_of_stock }}</td>
                               <td>{{ item.to_sell }}</td>
+                              <td><a href="{% url 'app:update' item.id %}">Update Stock</a></td> 
                             </tr>
                           </tbody>
                         {% endfor %}
