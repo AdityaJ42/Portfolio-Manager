@@ -195,7 +195,7 @@ def stock_update(request, id):
 
         data.save()
         print("Updated")
-        return render(request, 'app/dashboard.html')
+        return redirect('/app/dashboard')
     print(data.company_intial + '\n\n')
     return render(request, 'app/update_company.html', {'data': data})
 

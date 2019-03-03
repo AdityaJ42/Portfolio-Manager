@@ -19,6 +19,7 @@ Dashboard
                             <th scope="col">Stock Name</th>
                             <th scope="col">Purchase Price</th>
                             <th scope="col">Quantity</th>
+                            <th scope="col">StopLoss</th>
                             <th scope="col">Sell</th>
                             <th scope="col">Update Stock</th>
                           </thead>
@@ -28,6 +29,7 @@ Dashboard
                               <td scope="row">{{ item }}</td>
                               <td>{{ item.purchase_price }}</td>
                               <td>{{ item.amount_of_stock }}</td>
+                              <td>{{ item.stoploss }}</td>
                               <td>{{ item.to_sell }}</td>
                               <td><a href="{% url 'app:update' item.id %}">Update Stock</a></td> 
                             </tr>
