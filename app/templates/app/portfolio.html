@@ -38,7 +38,7 @@ Portfolio
 
             window.onload = function () {
 
-            var f = [{% for key, value in costs_pred.items %}
+            var f = [{% for key, value in costs.items %}
                         {y: {{ value }}, label: "{{ key }}"},
                      {% endfor %}
                     ];
