@@ -5,7 +5,7 @@ Add Stock
 
 {%block content%}
               	<br><br>
-				<div class="container mt-5">
+				<div class="container ml-5 p-5">
 				    <form method="post">
 				      	{% csrf_token %}
 					  	<div class="form-group row">
@@ -18,14 +18,14 @@ Add Stock
 					  	<div class="form-group row">
 						    <label for="inputPassword3" class="col-sm-2 col-form-label">Ticker</label>
 						    <div class="col-sm-8">
-						      	<input type="text" class="form-control" name="ticker" id="inputPassword3" placeholder="Intials">
+						      	<input type="text" class="form-control" name="ticker" id="inputPassword3" placeholder="Initials">
 						    </div>
 					  	</div>
 					  	<br>
 					  	<div class="form-group row">
 						    <label for="inputPassword5" class="col-sm-2 col-form-label">Purchase Price(per stock)</label>
 						    <div class="col-sm-8">
-						      	<input type="text" class="form-control" name="ppps" id="inputPassword5" placeholder="Intials">
+						      	<input type="text" class="form-control" name="ppps" id="inputPassword5" placeholder="Amount">
 						    </div>
 					  	</div>
 					  	<br>
@@ -58,4 +58,9 @@ Add Stock
 					  </center>
 					</form>
 				</div>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
+				<script type="text/javascript" src="../../static/js/home.js"></script>
 	{%endblock content%}

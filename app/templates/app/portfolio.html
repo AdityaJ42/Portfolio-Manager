@@ -4,21 +4,24 @@ Portfolio
 {% endblock %}
 
 {%block content%}
-                <div class="container">
-                    <h1 class="mt-5"><strong>Portfolio</strong></h1>
-                    <br><br><br>
+                <div class="container mb-5">
+                    <h1 class="mt-5"><i class="fa fa-folder-open" aria-hidden="true"></i> Portfolio</h1>
+                    <br><br>
                     <h3>Total Investment: Rs {{ total }}</h3>
-                    <div id="chartContainer1" style="height: 600px; width: 100%;"></div>
-                    <div>
-                    	<h4>Dividends Expected:</h4>
-                    	{% for key, values in dividend.items %}
-                    	<h4>{{ key }} - 
-                    	{% for val in values %}
-                    		{{ val.0 }}
-                    	{% endfor %}
-                    	</h4>
-                    	{% endfor %}
-                    </div>
+                    <br>
+                    <div class="row">
+	                    <div class="col-6" id="chartContainer1" style="height: 500px; width: 100%;"></div>
+	                    <div class="col-6 mt-5 p-5">
+	                    	<h4>Dividends Expected:</h4>
+	                    	{% for key, values in dividend.items %}
+	                    	<h4>{{ key }} - 
+	                    	{% for val in values %}
+	                    		{{ val.0 }}
+	                    	{% endfor %}
+	                    	</h4>
+	                    	{% endfor %}
+	                    </div>
+                	</div>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
@@ -35,7 +38,7 @@ Portfolio
 
             window.onload = function () {
 
-            var f = [{% for key, value in costs.items %}
+            var f = [{% for key, value in costs_pred.items %}
                         {y: {{ value }}, label: "{{ key }}"},
                      {% endfor %}
                     ];
@@ -43,7 +46,7 @@ Portfolio
             var chart = new CanvasJS.Chart("chartContainer1", {
                 animationEnabled: true,
                 title:{
-                    text: "Investment",
+                    text: "Investments",
                     horizontalAlign: "left"
                 },
                 data: [{

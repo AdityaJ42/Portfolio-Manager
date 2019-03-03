@@ -5,14 +5,14 @@ Dashboard
 
 
 {%block content%}
-                <div class="mt-5 container">
+                <div class="mt-3 container">
                     <div>
-                      <h1 class="mt-5" style="float: left;"><strong>Dashboard</strong></h1>
+                      <h1 class="mt-5" style="float: left;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Dashboard</h1>
                       <a href="{% url 'app:add_company' %}">
-                        <button class="mt-5 btn btn-danger add" style="float: right;">Add Stock</button>
+                        <button class="mt-5 btn btn-danger add" style="float: right; width: auto;">Add Stock</button>
                       </a>
                     </div>
-                    <br><br><br>
+                    <br><br><br><br>
                     <div class="mt-5">
                         <table class="table table-hover">
                           <thead style="text-align: center;">
@@ -21,7 +21,7 @@ Dashboard
                             <th scope="col">Quantity</th>
                             <th scope="col">StopLoss</th>
                             <th scope="col">Sell</th>
-                            <th scope="col">Update Stock</th>
+                            <th scope="col"></th>
                           </thead>
                           {% for item in data %}
                           <tbody>
@@ -31,7 +31,7 @@ Dashboard
                               <td>{{ item.amount_of_stock }}</td>
                               <td>{{ item.stoploss }}</td>
                               <td>{{ item.to_sell }}</td>
-                              <td><a href="{% url 'app:update' item.id %}">Update Stock</a></td> 
+                              <td><a href="{% url 'app:update' item.id %}"><button class="btn btn-info">Update Stock</button></a></td> 
                             </tr>
                           </tbody>
                         {% endfor %}
@@ -41,6 +41,13 @@ Dashboard
 
             <!-- /#page-content-wrapper -->
 
-        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
+        <script type="text/javascript" src="../../static/js/home.js"></script>        
           <!-- /#wrapper -->
+
 {% endblock content %}

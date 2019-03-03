@@ -10,10 +10,10 @@ import os
 from keras.models import Sequential
 from keras.layers import Dense
 
-consumer_key = "k3pEbBjtma2rzFUOebGxaSKq0"
-consumer_secret = "gF8u5ypWPr2EMNTfhujEI4X9uWlM1ROv6dxWzCHOMkmbjKBOU4"
-access_token = "1101314053589233664-Ahed5wAS2hDCqdcnV40J6eCYgnRNOv"
-access_token_secret = "GNOhScWWbhpBn4F5lwSlIqviHe8UCfE7J80mlGOnqqRja"
+consumer_key = "pNrQrTuL49C5EIv9lwEcXHudu"
+consumer_secret = "xVeNYAmrJ3AraIaWBksDmEICNfHCvpBSmiWjcKx7l3TmKNFeTi"
+access_token = "1101314053589233664-ojd8eHuQvQSAusZ8IB4ies8qOnkMr6"
+access_token_secret = "cWcdGtZPhBFOvGzx7HXk66qYp9dj3nfQDjUxmxa23VZ6c"
 
 
 def get_sentiment(company_name):
@@ -58,7 +58,7 @@ def predictor(ticker):
     model.add(Dense(8, input_dim=1, activation='relu'))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs=200, batch_size=10, verbose=0)
+    model.fit(trainX, trainY, epochs=100, batch_size=10, verbose=0)
 
     return model.predict(np.array([dataset[len(dataset) - 1]]))
 
@@ -173,18 +173,23 @@ def company(request):
 def portfolio(request):
     companies = Company.objects.filter(user=request.user)
     costs = {}
+    costs_pred = {}
     dividend = {}
     total = 0
     for company in companies:
         total += company.amount_of_stock * company.purchase_price
 
     for company in companies:
+        pred = predictor(company.company_intial)
         percent1 = (company.purchase_price * company.amount_of_stock * 100) / total
-        div_amt = (predictor(company.company_intial) * company.amount_of_stock * company.dividend_rate) / 100
+        percent2 = (pred * company.amount_of_stock * 100) / total
+        div_amt = (pred * company.amount_of_stock * company.dividend_rate) / 100
         dividend[company.company_name] = div_amt
         costs[company.company_name] = percent1
+        costs_pred[company.company_name] = percent2
 
-    return render(request, 'app/portfolio.html', {'costs': costs, 'total': total, 'dividend': dividend})
+    return render(request, 'app/portfolio.html', {'costs': costs, 'total': total, 'dividend': dividend,
+                                                'costs_pred': costs_pred})
 
 
 @login_required(login_url='app:login')
@@ -194,12 +199,13 @@ def stock_update(request, id):
 
     if request.method == 'POST':
         new_amt = request.POST['amt']
-        new_rate = request.POST['rate']
+        if request.POST["rate"]:
+            new_rate = request.POST['rate']
+            data.dividend_rate = new_rate
         new_stoploss = request.POST['stopl']
 
         data.amount_of_stock = new_amt
         data.stoploss = new_stoploss
-        data.dividend_rate = new_rate
 
         data.save()
         print("Updated")

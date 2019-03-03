@@ -13,8 +13,13 @@ th {
   margin-top: 3vh;*/
 }
 
-.butt, .add {
+.butt {
   width: 15vh;
+  font-size: 18px;
+}
+
+.add {
+  width: auto;
   font-size: 18px;
 }
 
