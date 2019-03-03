@@ -17,7 +17,6 @@ access_token_secret = "cWcdGtZPhBFOvGzx7HXk66qYp9dj3nfQDjUxmxa23VZ6c"
 
 
 def get_sentiment(company_name):
-    print("HERE")
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
@@ -65,20 +64,7 @@ def predictor(ticker):
 
 @login_required(login_url='app:login')
 def home(request):
-    path = os.getcwd() + '/app/data/'
-    comps = ['BAJAJ-AUTO']
-    stocks = {}
-    for f in comps:
-        fd = open(path + f + '.csv')
-        dataset = []
-        for n, line in enumerate(fd):
-            if n != 0:
-                dataset.append(float(line.split(',')[4]))
-        stocks[f] = dataset
-
-    sentiment = get_sentiment('DLF')
-    print(sentiment)
-    return render(request, 'app/home.html', {'stocks': stocks, 'sentiment': sentiment})
+    return render(request, 'app/home.html')
 
 
 @login_required(login_url='app:login')
@@ -89,7 +75,6 @@ def dashboard(request):
         ticker = item.company_intial
         predicted_price = predictor(ticker.upper())
         if predicted_price[0][0] < item.stoploss:
-            print(str(item.stoploss) + ':' + str(predicted_price[0][0]))
             update_item.append(item.company_intial)
 
     for temp in data:
@@ -112,7 +97,7 @@ def register(request):
             username = user_form.cleaned_data['username']
             password = user_form.cleaned_data['password']
             email = user_form.cleaned_data['email']
-            print(email)
+
             user.set_password(password)
             user.save()
             login(request, authenticate(username=username, password=password,
@@ -208,7 +193,5 @@ def stock_update(request, id):
         data.stoploss = new_stoploss
 
         data.save()
-        print("Updated")
         return redirect('/app/dashboard')
-    print(data.company_intial + '\n\n')
     return render(request, 'app/update_company.html', {'data': data})
