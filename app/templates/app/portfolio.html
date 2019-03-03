@@ -9,6 +9,16 @@ Portfolio
                     <br><br><br>
                     <h3>Total Investment: Rs {{ total }}</h3>
                     <div id="chartContainer1" style="height: 600px; width: 100%;"></div>
+                    <div>
+                    	<h4>Dividends Expected:</h4>
+                    	{% for key, values in dividend.items %}
+                    	<h4>{{ key }} - 
+                    	{% for val in values %}
+                    		{{ val.0 }}
+                    	{% endfor %}
+                    	</h4>
+                    	{% endfor %}
+                    </div>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

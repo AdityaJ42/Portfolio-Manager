@@ -173,15 +173,18 @@ def company(request):
 def portfolio(request):
     companies = Company.objects.filter(user=request.user)
     costs = {}
+    dividend = {}
     total = 0
     for company in companies:
         total += company.amount_of_stock * company.purchase_price
 
     for company in companies:
         percent1 = (company.purchase_price * company.amount_of_stock * 100) / total
+        div_amt = (predictor(company.company_intial) * company.amount_of_stock * company.dividend_rate) / 100
+        dividend[company.company_name] = div_amt
         costs[company.company_name] = percent1
 
-    return render(request, 'app/portfolio.html', {'costs': costs, 'total': total})
+    return render(request, 'app/portfolio.html', {'costs': costs, 'total': total, 'dividend': dividend})
 
 
 @login_required(login_url='app:login')
@@ -203,10 +206,3 @@ def stock_update(request, id):
         return redirect('/app/dashboard')
     print(data.company_intial + '\n\n')
     return render(request, 'app/update_company.html', {'data': data})
-
-
-def display(request, id):
-    company = Company.objects.filter(user=request.user)
-    a = company[id - 1]
-
-    return render(request, 't.html', {'a': a})
