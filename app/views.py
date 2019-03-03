@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import Sign
-# import tweepy
-# from textblob import TextBlob
+import tweepy
+from textblob import TextBlob
 from .models import Company
 import numpy as np
 import os
@@ -16,7 +16,7 @@ access_token = "1101314053589233664-Ahed5wAS2hDCqdcnV40J6eCYgnRNOv"
 access_token_secret = "GNOhScWWbhpBn4F5lwSlIqviHe8UCfE7J80mlGOnqqRja"
 
 
-"""def get_sentiment(company_name):
+def get_sentiment(company_name):
     print("HERE")
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -35,7 +35,7 @@ access_token_secret = "GNOhScWWbhpBn4F5lwSlIqviHe8UCfE7J80mlGOnqqRja"
     if positive > (len(public_tweets) - null) / 2:
         return True
     else:
-        return False"""
+        return False
 
 
 def predictor(ticker):
@@ -66,18 +66,19 @@ def predictor(ticker):
 @login_required(login_url='app:login')
 def home(request):
     path = os.getcwd() + '/app/data/'
-    files_list = os.listdir(path)[:1]
+    comps = ['BAJAJ-AUTO']
     stocks = {}
-    for f in files_list:
-        company_name = f[:f.find('.')]
-        fd = open(path + f)
+    for f in comps:
+        fd = open(path + f + '.csv')
         dataset = []
         for n, line in enumerate(fd):
             if n != 0:
                 dataset.append(float(line.split(',')[4]))
-        stocks[company_name] = dataset
-    print(stocks)
-    return render(request, 'app/home.html', {'stocks': stocks})
+        stocks[f] = dataset
+
+    sentiment = get_sentiment('DLF')
+    print(sentiment)
+    return render(request, 'app/home.html', {'stocks': stocks, 'sentiment': sentiment})
 
 
 @login_required(login_url='app:login')
@@ -193,6 +194,7 @@ def stock_update(request, id):
         data.stoploss = new_stoploss
 
         data.save()
+        print("Updated")
         return render(request, 'app/dashboard.html')
     print(data.company_intial + '\n\n')
     return render(request, 'app/update_company.html', {'data': data})

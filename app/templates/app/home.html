@@ -7,45 +7,44 @@ Home
 {% block content %}
 
 	<div class="container">
-		<h1 class="mt-5"><strong>Home Page</strong></h1>
+		<h1 class="mt-5"><strong>Home</strong></h1>
 		<br><br><br>
-		<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+        <h3>Company which is going to show an increase in price based on sentiment: DLF</h3>
+		<canvas id="myChart" width="100px" height="100px"></canvas>
 	</div>
 
 
-	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
 	<script type="text/javascript" src="../../static/js/home.js"></script>
 	<script type="text/javascript">
-            window.onload = function () {
 
-			var f = [{% for key, value in stocks.items %}
-                        {% for val in value %}
-                        	{y: {{ val }}},
-                        {% endfor %}
-                     {% endfor %}
-            ];
+        var ctx = document.getElementById("myChart");
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
 
-            var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
-                title:{
-                    text: "Stock Trend",
-                },
-                axisY:{
-					includeZero: false
-				},
-                data: [{
-                    type: "line",
-                    lineColor: "red",
-                    dataPoints: f
+        // The data for our dataset
+        data: {
+            labels: ["Jan", "Feb", "March"],
+            datasets: [{
+                label: ["DLF"],
+                fill: false,
+                showLine: true,
+                backgroundColor: 'rgb(255, 0, 0)',
+                borderColor: 'rgb(255, 0, 0)',
+                data: [177.1, 179.9, 173.1, 173.05, 178.0, 179.8, 182.25, 183.1, 182.5, 182.3, 182.5, 185.6, 183.7, 184.5,
+                        180.55, 177.0, 180.4, 177.9, 178.85, 160.0, 163.0, 166.0, 165.0, 164.95, 165.9, 163.05, 158.0, 161.0, 160.0, 164.8, 164.0, 160.4, 157.0, 162.0, 159.0, 157.9, 163.6, 163.0, 165.5, 170.55, 165.1, 167.0, 163.0, 166.0]
                 }]
-            });
-            chart.render();
-
+        },
+        // Configuration options go here
+        options: {
+            axisX: {
+                showGrid: false
             }
-
-
-        </script>
+        }
+    });
+    </script>
   {% endblock %}

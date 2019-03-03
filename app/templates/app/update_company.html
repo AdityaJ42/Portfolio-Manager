@@ -7,7 +7,7 @@ Update Stock
 {%block content%}
               	<br><br>
 				<div class="container mt-5">
-				    <form method="post" action="{% url 'app:dashboard' %}">
+				    <form method="post">
 				      	{% csrf_token %}
 					  	<div class="form-group row">
 					    	<label for="inputEmail3" class="col-sm-2 col-form-label">Company Name</label>
