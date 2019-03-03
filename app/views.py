@@ -152,6 +152,8 @@ def company(request):
         amount_of_stock = request.POST['amt']
         pur_price = request.POST['ppps']
         stploss = request.POST['stopl']
+        if request.POST['rate']:
+            rate = request.POST['rate']
 
         company = Company()
         company.user = user
@@ -160,6 +162,7 @@ def company(request):
         company.amount_of_stock = amount_of_stock
         company.purchase_price = pur_price
         company.stoploss = stploss
+        company.dividend_rate = rate
         company.save()
 
         return redirect('/app/dashboard')
@@ -178,7 +181,7 @@ def portfolio(request):
         percent1 = (company.purchase_price * company.amount_of_stock * 100) / total
         costs[company.company_name] = percent1
 
-    return render(request, 'app/portfolio.html', {'costs': costs})
+    return render(request, 'app/portfolio.html', {'costs': costs, 'total': total})
 
 
 @login_required(login_url='app:login')
@@ -188,10 +191,12 @@ def stock_update(request, id):
 
     if request.method == 'POST':
         new_amt = request.POST['amt']
+        new_rate = request.POST['rate']
         new_stoploss = request.POST['stopl']
 
         data.amount_of_stock = new_amt
         data.stoploss = new_stoploss
+        data.dividend_rate = new_rate
 
         data.save()
         print("Updated")

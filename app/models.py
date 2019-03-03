@@ -10,6 +10,7 @@ class Company(models.Model):
     purchase_price = models.FloatField()
     stoploss = models.FloatField()
     to_sell = models.CharField(max_length=3, default="No")
+    dividend_rate = models.FloatField(default=10.0)
 
     def __str__(self):
         return self.company_name
